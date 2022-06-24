@@ -46,9 +46,10 @@ def retorno_ex():
 		input('ERRO')
 		exit()
 
-
+sinais_ = None
 
 def get_sinal():
+	global sinais_
 	global geral
 
 	sinais = []
@@ -77,7 +78,7 @@ def get_sinal():
 
 
 				open(arq_sinais,'w').write(file.replace(sinal,''))
-	sinal_ = sinal.split(',')	
+
 	par_ = sinal_[1]
 	timeframe_ = sinal_[3]
 	velas = API.get_candles(par_, (int(timeframe_) * 60), 20,  time.time())

@@ -46,7 +46,6 @@ def retorno_ex():
 		input('ERRO')
 		exit()
 
-sinais_ = None
 
 def get_sinal():
 	global sinais_

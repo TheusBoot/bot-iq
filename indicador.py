@@ -78,8 +78,8 @@ def get_sinal():
 
 				open(arq_sinais,'w').write(file.replace(sinal,''))
 
-	#par_ = sinal_[1]
-	#timeframe_ = sinal_[3]
+	par_ = sinal_[1]
+	timeframe_ = sinal_[3]
 	velas = API.get_candles(par, (int(timeframe) * 60), 20,  time.time())
 	ultimo = round(velas[0]['close'], 6)
 	primeiro = round(velas[-1]['close'], 6)

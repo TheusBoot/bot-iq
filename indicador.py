@@ -69,7 +69,7 @@ def get_sinal():
 			#TimeStamp, PARIDADE, CALL,1
 
 			if sinal[0].isdigit():
-				if int(int(sinal_[0]) - time()) <=2:
+				if int(int(sinal_[0]) - time()) <=20:
 					sinais.append({'timestamp': sinal_[0],
 									'par': sinal_[1],
 									'dir':sinal_[2],
@@ -77,8 +77,16 @@ def get_sinal():
 
 
 				open(arq_sinais,'w').write(file.replace(sinal,''))
-
-	return sinais
+				
+	velas = API.get_candles(par_, (int(timeframe_) * 60), 20,  time.time())
+	par_ = sinal_[1]
+	timeframe_ = sinal_[3]
+	ultimo = round(velas[0]['close'], 6)
+	primeiro = round(velas[-1]['close'], 6)
+	diferenca = abs( round( ( (ultimo - primeiro) / primeiro ) * 100, 3) )
+	tendencia = "CALL" if ultimo < primeiro and diferenca > 0.01 else "PUT" if ultimo > primeiro and diferenca > 0.01 else False
+	if sinal_[2] == tendencia:
+		return sinais
 
 
 

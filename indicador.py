@@ -60,7 +60,8 @@ def get_sinal():
 		file = open(arq_sinais, 'a').write('\n')
 		file = ''
 
-
+	par = 'EURUSD'
+	timeframe = 1
 	for index, sinal in enumerate(file.split('\n')):
 		if len(sinal) > 0 and sinal != '':
 			sinal_ = sinal.split(',')

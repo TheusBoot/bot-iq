@@ -50,6 +50,8 @@ def retorno_ex():
 
 def get_sinal():
 	global geral
+	par_ ='EURUSD'
+	timeframe_ = 1
 
 	sinais = []
 	arq_sinais = geral['dir'] + datetime.now().strftime('%Y%m%d') + '_retorno.csv'
@@ -75,8 +77,15 @@ def get_sinal():
 									'dir':sinal_[2],
 									'timeframe':sinal_[3]})
 
+				velas = API.get_candles(par_,(int(timeframe_) * 60),20,time.time())
 
-				open(arq_sinais,'w').write(file.replace(sinal,''))
+				ultimo = round(velas[0]['close'],4)
+				primeiro = round(velas[-1]['close'],4)
+
+				diferenca = abs(round(((ultimo - primeiro) / primeiro) * 100, 3))
+				tendencia = "CALL" if ultimo < primeiro and diferenca > 0.01 else "PUT" if ultimo > primeiro and diferenca > 0.01 else False
+				if sinal_[2] == 0:
+					open(arq_sinais,'w').write(file.replace(sinal,''))
 
 	return sinais
 

@@ -13,7 +13,7 @@ from multiprocessing import Process
 from threading import Thread,Lock,get_ident
 
 
-API = IQ_Option('xx','xx')
+API = IQ_Option('Emailmartingcf1@gmail.com','Matheus@zz00')
 check_ = API.connect()
 print(check_)
 mode = "PRACTICE"
@@ -60,8 +60,7 @@ def get_sinal():
 		file = open(arq_sinais, 'a').write('\n')
 		file = ''
 
-	par = 'EURUSD'
-	timeframe = 1
+
 	for index, sinal in enumerate(file.split('\n')):
 		if len(sinal) > 0 and sinal != '':
 			sinal_ = sinal.split(',')
@@ -76,16 +75,10 @@ def get_sinal():
 									'dir':sinal_[2],
 									'timeframe':sinal_[3]})
 
-				velas = API.get_candles(par,(int(timeframe) * 60),20,time.time())
-				ultimo = round(velas[0]['close'],4)
-				primeiro = round(velas[-1]['close'],4)
-				diferencia = abs(roubd((ultimo - primeiro / primeiro) *100,3))
-				tendencia = "CALL" if ultimo < primeiro and diferencia > 0.01 else "PUT" if ultimo > primeiro and diferenca >0.01 else False
-				if sinal_[2] == tendencia:
-					open(arq_sinais,'w').write(file.replace(sinal,''))
-					return sinais
 
-	#return sinais
+				open(arq_sinais,'w').write(file.replace(sinal,''))
+
+	return sinais
 
 
 

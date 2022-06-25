@@ -84,7 +84,7 @@ def get_sinal():
 
 				diferenca = abs(round(((ultimo - primeiro) / primeiro) * 100, 3))
 				tendencia = "CALL" if ultimo < primeiro and diferenca > 0.01 else "PUT" if ultimo > primeiro and diferenca > 0.01 else False
-				if sinal_[2] == 0:
+				if sinal_[2] == tendencia:
 					open(arq_sinais,'w').write(file.replace(sinal,''))
 
 	return sinais

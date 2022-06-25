@@ -13,7 +13,7 @@ from multiprocessing import Process
 from threading import Thread,Lock,get_ident
 
 
-API = IQ_Option('Emailmartingcf1@gmail.com','Matheus@zz00')
+API = IQ_Option('xx','xx')
 check_ = API.connect()
 print(check_)
 mode = "PRACTICE"
@@ -47,6 +47,7 @@ def retorno_ex():
 		exit()
 
 
+
 def get_sinal():
 	global geral
 
@@ -68,24 +69,22 @@ def get_sinal():
 			#TimeStamp, PARIDADE, CALL,1
 
 			if sinal[0].isdigit():
-				if int(int(sinal_[0]) - time()) <=20:
+				if int(int(sinal_[0]) - time()) <=2:
 					sinais.append({'timestamp': sinal_[0],
 									'par': sinal_[1],
 									'dir':sinal_[2],
 									'timeframe':sinal_[3]})
 
+				velas = API.get_candles(par,(int(timeframe) * 60),20,time.time())
+				ultimo = round(velas[0]['close'],4)
+				primeiro = round(velas[-1]['close'],4)
+				diferencia = abs(roubd((ultimo - primeiro / primeiro) *100,3))
+				tendencia = "CALL" if ultimo < primeiro and diferencia > 0.01 else "PUT" if ultimo > primeiro and diferenca >0.01 else False
+				if sinal_[2] == tendencia:
+					open(arq_sinais,'w').write(file.replace(sinal,''))
+					return sinais
 
-				open(arq_sinais,'w').write(file.replace(sinal,''))
-
-			#par_ = sinal_[1]
-			#timeframe_ = sinal_[3]
-			#velas = API.get_candles(par_, (int(timeframe_) * 60), 20,  time.time())
-			#ultimo = round(velas[0]['close'], 6)
-			#primeiro = round(velas[-1]['close'], 6)
-			#diferenca = abs( round( ( (ultimo - primeiro) / primeiro ) * 100, 3) )
-			#tendencia = "CALL" if ultimo < primeiro and diferenca > 0.01 else "PUT" if ultimo > primeiro and diferenca > 0.01 else False
-			#if sinal_[2] == tendencia:
-			#	return sinais
+	#return sinais
 
 
 
